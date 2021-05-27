@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class MenuController {
 	@Autowired
 	private MenuRepos menuRepos;
 	
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 //To view allMenu API
 	@GetMapping("/allmenu")
 	public List<Menu> getAllMenu()
@@ -42,20 +43,20 @@ public class MenuController {
 	}
 	
 	//Delete the Menu or Categories API
-	@DeleteMapping("/delete/{name}")
-	public void deleteMenu(@PathVariable(value = "name") String name) {
-		Menu id=menuRepos.findByName(name);
-		menuRepos.deleteById(id.getId());
+	@DeleteMapping("/delete/{id}")
+	public void deleteMenu(@PathVariable(value = "id") long id) {
+		//Menu id=menuRepos.findByName(name);
+		menuRepos.deleteById(id);
 	}
 	
 	
 	//Delete subMenu APi
-	@DeleteMapping("/delete/{name}/{parent}")
-	public void deleteMenu(@PathVariable String name, @PathVariable int parent ) {
-		Menu id=menuRepos.findByNameAndParent(name , parent );
-		menuRepos.deleteById(id.getId());
+	//@DeleteMapping("/delete/{name}/{parent}")
+	//public void deleteMenu(@PathVariable String name, @PathVariable int parent ) {
+		//Menu id=menuRepos.findByNameAndParent(name , parent );
+		//menuRepos.deleteById(id.getId());
 	
-	}
+	//}
 	
 	//update Both menu and sub menu By hitting there respective ID
 	@PutMapping("/update/{id}")
